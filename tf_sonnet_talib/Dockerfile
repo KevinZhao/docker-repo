@@ -45,8 +45,7 @@ RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/si
     apt-get install -y python-dev libmysqlclient-dev && \
     pip3 install --no-cache-dir mysqlclient && \
     pip3 install --no-cache-dir SQLAlchemy && \
-    pip3 install --no-cache-dir pandas && \
-    pip3 install --no-cache-dir alchemy5 && \
+    pip3 install --no-cache-dir python-pandas && \
 #----------------------------------------------------------------------------------------
 #beautiful soap
     pip3 install --no-cache-dir beautifulsoup4
