@@ -8,7 +8,12 @@ MAINTAINER Kevin Zhao <kevin8093@126.com>
 #using China mirror for ubuntu
 RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list
 
-RUN apt-get update
+#mysql support  
+RUN   apt-get update && \
+      apt-get install -y python-dev libmysqlclient-dev && \
+      pip3 install --no-cache-dir mysqlclient && \
+      pip3 install --no-cache-dir SQLAlchemy && \
+    
 
 # Supress warnings about missing front-end. As recommended at:
 # http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
@@ -32,11 +37,7 @@ RUN apt-get install -y --no-install-recommends \
     libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev \
     libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libgtk2.0-dev \
     liblapacke-dev checkinstall\
-#mysql support    
-    apt-get update && \
-    apt-get install -y python-dev libmysqlclient-dev && \
-    pip3 install --no-cache-dir mysqlclient && \
-    pip3 install --no-cache-dir SQLAlchemy && \
+
 
 # Get source from github
 RUN git clone https://github.com/opencv/opencv.git /usr/local/src/opencv && \
