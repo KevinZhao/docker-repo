@@ -10,6 +10,7 @@ RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com
 
 #mysql support  
 RUN   apt-get update && \
+      python setup.py install && \
       apt-get install -y python-dev libmysqlclient-dev && \
       pip3 install --no-cache-dir mysqlclient && \
       pip3 install --no-cache-dir SQLAlchemy && \
