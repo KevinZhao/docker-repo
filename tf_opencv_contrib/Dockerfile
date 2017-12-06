@@ -14,7 +14,8 @@ RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com
 # Supress warnings about missing front-end. As recommended at:
 # http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends apt-utils
 
 # Developer Essentials
 RUN apt-get install -y --no-install-recommends git curl vim unzip openssh-client wget
@@ -55,8 +56,7 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
     make -j"$(nproc)" && \
     make install
 #mysql support  
-RUN   apt-get update && \
-      apt-get install -y python-dev libmysqlclient-dev && \
+RUN   apt-get install -y python-dev libmysqlclient-dev && \
       pip3 install --no-cache-dir mysqlclient && \
       pip3 install --no-cache-dir SQLAlchemy && \
 #
