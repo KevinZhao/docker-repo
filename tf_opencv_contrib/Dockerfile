@@ -8,11 +8,7 @@ MAINTAINER Kevin Zhao <kevin8093@126.com>
 #using China mirror for ubuntu
 RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list
 
-#mysql support  
-RUN   apt-get update 
-RUN   apt-get install -y python-dev libmysqlclient-dev && \
-      pip3 install --no-cache-dir mysqlclient && \
-      pip3 install --no-cache-dir SQLAlchemy && \
+
     
 
 # Supress warnings about missing front-end. As recommended at:
@@ -58,7 +54,11 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
           .. && \
     make -j"$(nproc)" && \
     make install
-
+#mysql support  
+RUN   apt-get update && \
+      apt-get install -y python-dev libmysqlclient-dev && \
+      pip3 install --no-cache-dir mysqlclient && \
+      pip3 install --no-cache-dir SQLAlchemy && \
 #
 # Cleanup
 #
