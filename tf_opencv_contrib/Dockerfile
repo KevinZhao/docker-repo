@@ -9,9 +9,8 @@ MAINTAINER Kevin Zhao <kevin8093@126.com>
 RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list
 
 #mysql support  
-RUN   apt-get update && \
-      cd /tmp/ta-lib-py && python setup.py install && \
-      apt-get install -y python-dev libmysqlclient-dev && \
+RUN   apt-get update 
+RUN   apt-get install -y python-dev libmysqlclient-dev && \
       pip3 install --no-cache-dir mysqlclient && \
       pip3 install --no-cache-dir SQLAlchemy && \
     
