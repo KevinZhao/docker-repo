@@ -56,7 +56,8 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
     make -j"$(nproc)" && \
     make install
 #mysql support  
-RUN   apt-get install -y python-dev libmysqlclient-dev && \
+RUN   apt-get update && \ 
+      apt-get install -y python-dev libmysqlclient-dev && \
       pip3 install --no-cache-dir mysqlclient && \
       pip3 install --no-cache-dir SQLAlchemy && \
 #
