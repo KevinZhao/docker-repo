@@ -1,3 +1,5 @@
 # comment
 */*/*/opencv*
 build?
+.git/
+node_modules/
