@@ -44,7 +44,6 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
           .. && \
     make -j"$(nproc)" && \
     make install && \
-    rm -r opencv 
 
 #
 # Cleanup
