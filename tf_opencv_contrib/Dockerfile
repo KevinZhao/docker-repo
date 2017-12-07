@@ -1,4 +1,3 @@
-
 FROM tensorflow/tensorflow:1.4.0-py3
 MAINTAINER Kevin Zhao <kevin8093@126.com>
 
@@ -8,23 +7,14 @@ MAINTAINER Kevin Zhao <kevin8093@126.com>
 #using China mirror for ubuntu
 RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list
 
-
-    
-
 # Supress warnings about missing front-end. As recommended at:
 # http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-utils
-
-# Developer Essentials
-RUN apt-get install -y --no-install-recommends git curl vim unzip openssh-client wget
-
-# Build tools
-RUN apt-get install -y --no-install-recommends build-essential cmake
-
-# OpenBLAS
-RUN apt-get install -y --no-install-recommends libopenblas-dev
+RUN  apt-get update  && \
+	 apt-get install -y --no-install-recommends apt-utils && \
+	 apt-get install -y --no-install-recommends git curl vim unzip openssh-client wget && \
+	 apt-get install -y --no-install-recommends build-essential cmake && \
+	 apt-get install -y --no-install-recommends libopenblas-dev
 
 #
 # OpenCV Latest
@@ -33,8 +23,7 @@ RUN apt-get install -y --no-install-recommends libopenblas-dev
 RUN apt-get install -y --no-install-recommends \
     libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev \
     libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libgtk2.0-dev \
-    liblapacke-dev checkinstall\
-
+    liblapacke-dev checkinstall
 
 # Get source from github
 RUN git clone https://github.com/opencv/opencv.git /usr/local/src/opencv && \
@@ -42,29 +31,29 @@ RUN git clone https://github.com/opencv/opencv.git /usr/local/src/opencv && \
 
 # Compile
 RUN cd /usr/local/src/opencv && mkdir build && cd build && \
-    cmake -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D BUILD_TESTS=OFF \
-          -D BUILD_opencv_gpu=OFF \
-          -D BUILD_PERF_TESTS=OFF \
-          -D WITH_IPP=OFF \
+    cmake  -D BUILD_TESTS=OFF \
+		   -D BUILD_opencv_gpu=OFF \
+           -D BUILD_PERF_TESTS=OFF \
+	       -D CMAKE_INSTALL_PREFIX=/usr/local \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_xfeatures2d=OFF /usr/local/src/opencv \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_dnn_modern=OFF /usr/local/src/opencv \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_dnns_easily_fooled=OFF /usr/local/src/opencv \
           -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
+		  -D WITH_IPP=OFF \
           .. && \
     make -j"$(nproc)" && \
     make install
-#mysql support  
-RUN   apt-get update && \ 
-      apt-get install -y python-dev libmysqlclient-dev && \
+
+RUN   apt-get install -y python-dev libmysqlclient-dev && \
       pip3 install --no-cache-dir mysqlclient && \
       pip3 install --no-cache-dir SQLAlchemy && \
+
 #
 # Cleanup
 #
-RUN apt-get clean && \
-    apt-get autoremove
+RUN apt-get autoremove && \
+    apt-get clean
 
 # NOTE: disable authentication token for convenience. DON'T DO THIS ON A PUBLIC SERVER.
 RUN echo "c.NotebookApp.ip = '*'" \
