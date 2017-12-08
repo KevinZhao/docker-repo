@@ -40,7 +40,7 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_dnn_modern=OFF /usr/local/src/opencv \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_dnns_easily_fooled=OFF /usr/local/src/opencv \
           -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
-		  -D WITH_IPP=OFF \
+          -D WITH_IPP=OFF \
           .. && \
     make -j"$(nproc)" && \
     make install && \
