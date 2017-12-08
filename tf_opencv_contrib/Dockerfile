@@ -46,6 +46,7 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
     make install && \
     rm -rf /usr/local/src/opencv && \
     rm -rf /usr/local/src/opencv_contrib
+    
 RUN apt-get update && \
     apt-get install -y python-dev libmysqlclient-dev && \
     pip3 install --no-cache-dir mysqlclient && \
