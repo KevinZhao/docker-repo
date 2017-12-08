@@ -10,11 +10,11 @@ RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com
 # Supress warnings about missing front-end. As recommended at:
 # http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
 ARG DEBIAN_FRONTEND=noninteractive
-RUN  apt-get update  && \
-	 apt-get install -y --no-install-recommends apt-utils && \
-	 apt-get install -y --no-install-recommends git curl vim unzip openssh-client wget && \
-	 apt-get install -y --no-install-recommends build-essential cmake && \
-	 apt-get install -y --no-install-recommends libopenblas-dev
+RUN apt-get update  && \
+    apt-get install -y --no-install-recommends apt-utils && \
+    apt-get install -y --no-install-recommends git curl vim unzip openssh-client wget && \
+    apt-get install -y --no-install-recommends build-essential cmake && \
+    apt-get install -y --no-install-recommends libopenblas-dev
 
 #
 # OpenCV Latest
@@ -31,10 +31,10 @@ RUN git clone https://github.com/opencv/opencv.git /usr/local/src/opencv && \
 
 # Compile
 RUN cd /usr/local/src/opencv && mkdir build && cd build && \
-    cmake  -D BUILD_TESTS=OFF \
-		   -D BUILD_opencv_gpu=OFF \
-           -D BUILD_PERF_TESTS=OFF \
-	       -D CMAKE_INSTALL_PREFIX=/usr/local \
+    cmake -D BUILD_TESTS=OFF \
+          -D BUILD_opencv_gpu=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+	  -D CMAKE_INSTALL_PREFIX=/usr/local \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_xfeatures2d=OFF /usr/local/src/opencv \
           -D OPENCV_EXTRA_MODULES_PATH=/usr/local/src/opencv_contrib/modules -D BUILD_opencv_dnn_modern=OFF /usr/local/src/opencv \
@@ -43,17 +43,23 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
 		  -D WITH_IPP=OFF \
           .. && \
     make -j"$(nproc)" && \
-    make install 
-
-
+    make install && \
+    rm -rf /usr/local/src/opencv && \
+    rm -rf /usr/local/src/opencv_contrib
+RUN apt-get update && \
+    apt-get install -y python-dev libmysqlclient-dev && \
+    pip3 install --no-cache-dir mysqlclient && \
+    pip3 install --no-cache-dir SQLAlchemy
+	
 #
 # Cleanup
 #
 RUN apt-get autoremove && \
     apt-get clean
-
-# NOTE: disable authentication token for convenience. DON'T DO THIS ON A PUBLIC SERVER.
-RUN echo "c.NotebookApp.ip = '*'" \
+	
+#update config file of Jupyter, it depends on your local configuration
+RUN echo "from IPython.lib import passwd" \
+         "\nc.NotebookApp.ip = '*'" \
          "\nc.NotebookApp.open_browser = False" \
-         "\nc.NotebookApp.token = ''" \
+         "\nc.NotebookApp.password = passwd('YourPassword')" \
          > /root/.jupyter/jupyter_notebook_config.py
