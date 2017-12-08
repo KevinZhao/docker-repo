@@ -43,7 +43,8 @@ RUN cd /usr/local/src/opencv && mkdir build && cd build && \
 		  -D WITH_IPP=OFF \
           .. && \
     make -j"$(nproc)" && \
-    make install && \
+    make install 
+
 
 #
 # Cleanup
