@@ -42,7 +42,7 @@ RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/si
 #----------------------------------------------------------------------------------------
 #mysql support
     apt-get update && \
-    apt-get install -y python-dev libmysqlclient-dev && \
+    apt-get install -y python-dev libmysqlclient-dev python3-tk && \
     pip3 install --no-cache-dir mysqlclient && \
     pip3 install --no-cache-dir SQLAlchemy && \
 #----------------------------------------------------------------------------------------
