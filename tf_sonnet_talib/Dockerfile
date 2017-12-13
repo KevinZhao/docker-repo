@@ -42,12 +42,13 @@ RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/si
 #----------------------------------------------------------------------------------------
 #mysql support
     apt-get update && \
-    apt-get install -y python-dev libmysqlclient-dev && \
+    apt-get install -y python-dev libmysqlclient-dev python3-tk && \
     pip3 install --no-cache-dir mysqlclient && \
     pip3 install --no-cache-dir SQLAlchemy && \
 #----------------------------------------------------------------------------------------
 #beautiful soap
-    pip3 install --no-cache-dir beautifulsoup4
+    pip3 install --no-cache-dir beautifulsoup4 && \
+    pip3 install --no-cache-dir apscheduler
 
 RUN pip3 install --no-cache-dir lxml && \
     pip3 install --no-cache-dir Tushare 
@@ -58,3 +59,18 @@ RUN echo "from IPython.lib import passwd" \
          "\nc.NotebookApp.open_browser = False" \
          "\nc.NotebookApp.password = passwd('YourPassword')" \
          > /root/.jupyter/jupyter_notebook_config.py
+
+RUN cd /root/.jupyter && mkdir nbconfig && \
+    echo "{" \
+         "  "Editor": {" \
+         "      "codemirror_options": {" \
+         "          "indentUnit": 4," \
+         "          "vimMode": false," \
+         "          "keyMap": "sublime"" \
+         "      }" \
+         "  }" \
+         "}" \
+         > /root/.jupyter/nbconfig/edit.json
+
+RUN mkdir /root/Ares
+WORKDIR "/root/Ares"
