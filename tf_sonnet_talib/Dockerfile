@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.4.0-py3
+FROM tensorflow/tensorflow:latest-py3
 
 #usage: 
 #docker run -it -v ~/Workspace/tf_model/notebooks:/notebooks -p 8888:8888 -p 6006:6006 kevin8093/tf_sonnet_talib
