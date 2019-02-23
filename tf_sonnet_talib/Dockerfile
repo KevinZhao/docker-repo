@@ -7,7 +7,7 @@ FROM tensorflow/tensorflow:latest-py3
 RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list
 
 #sonnet
-RUN pip3 install --upgrade pip3
+RUN pip3 install --upgrade pip
 RUN pip3 install dm-sonnet && \
 #----------------------------------------------------------------------------------------
 #TA-LIB
