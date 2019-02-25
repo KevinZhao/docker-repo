@@ -53,26 +53,27 @@ RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/si
     pip3 install --no-cache-dir apscheduler
 
 RUN pip3 install --no-cache-dir lxml && \
-    pip3 install --no-cache-dir Tushare 
+    pip3 install --no-cache-dir Tushare
+    
+RUN mkdir /root/Ares
 
 #update config file of Jupyter, it depends on your local configuration
-RUN echo "from IPython.lib import passwd" \
-         "\nc.NotebookApp.ip = '*'" \
-         "\nc.NotebookApp.open_browser = False" \
-         "\nc.NotebookApp.password = passwd('YourPassword')" \
-         > /root/.jupyter/jupyter_notebook_config.py
+#RUN echo "from IPython.lib import passwd" \
+#         "\nc.NotebookApp.ip = '*'" \
+#         "\nc.NotebookApp.open_browser = False" \
+#         "\nc.NotebookApp.password = passwd('YourPassword')" \
+#         > /root/.jupyter/jupyter_notebook_config.py
 
-RUN cd /root/.jupyter && mkdir nbconfig && \
-    echo "{" \
-         "  "Editor": {" \
-         "      "codemirror_options": {" \
-         "          "indentUnit": 4," \
-         "          "vimMode": false," \
-         "          "keyMap": "sublime"" \
-         "      }" \
-         "  }" \
-         "}" \
-         > /root/.jupyter/nbconfig/edit.json
+#RUN cd /root/.jupyter && mkdir nbconfig && \
+#    echo "{" \
+#         "  "Editor": {" \
+#         "      "codemirror_options": {" \
+#         "          "indentUnit": 4," \
+#         "          "vimMode": false," \
+#         "          "keyMap": "sublime"" \
+#         "      }" \
+#         "  }" \
+#         "}" \
+#         > /root/.jupyter/nbconfig/edit.json
 
-RUN mkdir /root/Ares
 WORKDIR "/root/Ares"
