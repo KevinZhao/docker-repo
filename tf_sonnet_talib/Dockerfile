@@ -35,9 +35,7 @@ ENV LANGUAGE=en_US.UTF-8
 #rqalpha
 RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     pip install bcolz -i https://pypi.tuna.tsinghua.edu.cn/simple && \
-    #pip install -i https://pypi.tuna.tsinghua.edu.cn/simple rqalpha && \
     pip install -i https://pypi.douban.com/simple rqalpha && \
-    #rqalpha update_bundle && \
 #----------------------------------------------------------------------------------------
     pip3 install --no-cache-dir mock grpcio && \
     rm -rf /tmp/* && \
