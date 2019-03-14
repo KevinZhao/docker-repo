@@ -48,7 +48,7 @@ RUN pip install -U pip setuptools cython -i https://pypi.tuna.tsinghua.edu.cn/si
     pip3 install --no-cache-dir SQLAlchemy && \
 #----------------------------------------------------------------------------------------
 #beautiful soap
-    pip3 install --no-cache-dir beautifulsoup4 && \
+    pip3 install --no-cache-dir beautifulsoup4 && html5lib\
     pip3 install --no-cache-dir apscheduler
 
 RUN pip3 install --no-cache-dir lxml && \
