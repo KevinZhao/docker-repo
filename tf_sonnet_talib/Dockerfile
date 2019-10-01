@@ -1,4 +1,5 @@
-FROM tensorflow/tensorflow:latest-py3-jupyter
+#FROM tensorflow/tensorflow:latest-py3-jupyter
+FROM tensorflow/tensorflow:nightly-py3-jupyter
 
 #usage: 
 #docker run -it -v ~/Workspace/tf_model/notebooks:/notebooks -p 8888:8888 -p 6006:6006 kevin8093/tf_sonnet_talib
@@ -8,7 +9,10 @@ RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com
 
 #sonnet
 RUN pip3 install --upgrade pip
-RUN pip3 install dm-sonnet && \
+#RUN pip3 install dm-sonnet && \
+
+RUN pip install "tensorflow-probability>=0.8.0rc0" --pre
+RUN pip install "dm-sonnet>=2.0.0b0" --pre
 #----------------------------------------------------------------------------------------
 #TA-LIB
     apt-get update && \
