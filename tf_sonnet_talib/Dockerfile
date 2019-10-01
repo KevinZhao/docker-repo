@@ -12,7 +12,7 @@ RUN pip3 install --upgrade pip
 #RUN pip3 install dm-sonnet && \
 
 RUN pip install "tensorflow-probability>=0.8.0rc0" --pre
-RUN pip install "dm-sonnet>=2.0.0b0" --pre
+RUN pip install "dm-sonnet>=2.0.0b0" --pre && \
 #----------------------------------------------------------------------------------------
 #TA-LIB
     apt-get update && \
